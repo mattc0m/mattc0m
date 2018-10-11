@@ -1,0 +1,46 @@
+@import 'mixins';
+@import 'variables';
+
+.button.inline {
+  position: relative;
+  span {
+    @include text-underline-crop(#fff);
+    color: $dark-1;
+    font-weight: 800;
+    position: relative;
+    z-index: 1;
+    @include transition(all 300ms ease-in-out);
+  }
+  &:after {
+    content: '';
+    display: inline-block;
+    width: 100%;
+    height: 2px;
+    position: absolute;
+    background: $grey-1;
+    bottom: 0px;
+    left: 0px;
+    z-index: 0;
+    opacity: 0;
+    @include translate(0px,5px);
+    @include transition(all 300ms ease-in-out);
+  }
+  &:hover {
+    span { color: $dark-3; }
+    &:after {
+      opacity: 1;
+      @include translate(0px,0px);
+    }
+  }
+}
+
+.button.pill {
+  padding: 8px 18px 6px 18px;
+  border: 1px solid $light-3;
+  line-height: 1em;
+  border-radius: 50px;
+  &:hover {
+    color: $grey-3;
+    border-color: $light-2;
+  }
+}

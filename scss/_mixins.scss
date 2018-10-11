@@ -1,0 +1,375 @@
+// 1. opacity mixin
+@mixin opacity($opacity) {
+  opacity: $opacity;
+  $opacity-ie: $opacity * 100;
+  filter: alpha(opacity=$opacity-ie); //IE8
+}
+
+// 2. transition mixin
+@mixin transition($args...) {
+  -webkit-transition: $args;
+  -moz-transition: $args;
+  -ms-transition: $args;
+  -o-transition: $args;
+  transition: $args;
+}
+
+// 3. animations
+@mixin keyframes($animation-name) {
+    @-webkit-keyframes #{$animation-name} {
+        @content;
+    }
+    @-moz-keyframes #{$animation-name} {
+        @content;
+    }
+    @-ms-keyframes #{$animation-name} {
+        @content;
+    }
+    @-o-keyframes #{$animation-name} {
+        @content;
+    }
+    @keyframes #{$animation-name} {
+        @content;
+    }
+}
+
+@mixin animation($str) {
+  -webkit-animation: #{$str};
+  -moz-animation: #{$str};
+  -ms-animation: #{$str};
+  -o-animation: #{$str};
+  animation: #{$str};
+}
+
+// 4. breakpoints
+$breakpoint-xl: 1800px;
+$breakpoint-larger: 1600px;
+$breakpoint-large: 1400px;
+$breakpoint-medium: 1200px;
+$breakpoint-small: 800px;
+
+@mixin bp-xl {
+  @media only screen and (max-width: $breakpoint-xl) {
+    @content;
+  }
+}
+@mixin bp-larger {
+  @media only screen and (max-width: $breakpoint-larger) {
+    @content;
+  }
+}
+@mixin bp-large {
+  @media only screen and (max-width: $breakpoint-large) {
+    @content;
+  }
+}
+@mixin bp-medium {
+  @media only screen and (max-width: $breakpoint-medium) {
+    @content;
+  }
+}
+@mixin bp-small {
+  @media only screen and (max-width: $breakpoint-small) {
+    @content;
+  }
+}
+
+// 5. visually hidden
+%visuallyhidden {
+  margin: -1px;
+  padding: 0;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  clip: rect(0, 0, 0, 0);
+  position: absolute;
+}
+
+// 6. clearfix
+%clearfix {
+  *zoom: 1;
+  &:before, &:after {
+    content: " ";
+    display: table;
+  }
+  &:after {
+    clear: both;
+  }
+}
+
+// 7. transform
+@mixin transform($transforms) {
+	   -moz-transform: $transforms;
+	     -o-transform: $transforms;
+	    -ms-transform: $transforms;
+	-webkit-transform: $transforms;
+          transform: $transforms;
+}
+// 8. rotate
+@mixin rotate ($deg) {
+  @include transform(rotate(#{$deg}deg));
+}
+
+// 9. scale
+@mixin scale($scale) {
+	 @include transform(scale($scale));
+}
+// 10. translate
+@mixin translate ($x, $y) {
+   @include transform(translate($x, $y));
+}
+// 11. skew
+@mixin skew ($x, $y) {
+   @include transform(skew(#{$x}deg, #{$y}deg));
+}
+// 12. transform origin
+@mixin transform-origin ($origin) {
+    moz-transform-origin: $origin;
+	     -o-transform-origin: $origin;
+	    -ms-transform-origin: $origin;
+	-webkit-transform-origin: $origin;
+          transform-origin: $origin;
+}
+
+// 13. font smooth
+@mixin font-smooth($fontsmooth: antialiased, $mozfontsmooth: grayscale ) {
+  -webkit-font-smoothing: $fontsmooth;
+  -moz-osx-font-smoothing: $mozfontsmooth;
+  font-smoothing: $fontsmooth;
+  text-rendering: optimizeLegibility;
+}
+
+// 14. box shadow
+@mixin box-shadow($top, $left, $blur, $color, $inset: false) {
+  @if $inset {
+    -webkit-box-shadow:inset $top $left $blur $color;
+    -moz-box-shadow:inset $top $left $blur $color;
+    box-shadow:inset $top $left $blur $color;
+  } @else {
+    -webkit-box-shadow: $top $left $blur $color;
+    -moz-box-shadow: $top $left $blur $color;
+    box-shadow: $top $left $blur $color;
+  }
+}
+
+// 14. triangles (plain and bordered)
+@mixin triangle($size, $color, $direction) {
+    height: 0;
+    width: 0;
+    border-color: transparent;
+    border-style: solid;
+    border-width: $size / 2;
+
+    @if $direction == up {
+      border-bottom-color: $color;
+    } @else if $direction == right {
+      border-left-color:   $color;
+
+    } @else if $direction == down {
+      border-top-color:    $color;
+
+    } @else if $direction == left {
+      border-right-color:  $color;
+    }
+}
+
+// 15. bordered triangle
+@mixin bordered-triangle($size, $border-width, $color, $border-color, $direction, $alt: false) {
+  $back-size: $size + ($border-width * 2);
+  position: relative;
+
+  min-width: $size;
+  min-height: $size;
+
+  &:after,
+  &:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+
+  &:after {
+     @include triangle($size, $color, $direction);
+  }
+
+  &:before {
+    @include triangle($back-size, $border-color, $direction);
+    $mid-border-width: ($border-width / 2);
+    $border-width-and-mid: $border-width + $mid-border-width;
+
+    @if ($alt == true) {
+      $mid-border-width: 0;
+      $border-width-and-mid: $border-width * 2;
+    }
+
+    @if ($direction == up) or ($direction == down) {
+      margin-left: - $border-width;
+
+      @if ($direction == down) {
+        margin-top: -$mid-border-width;
+      } @else {
+        margin-top: - $border-width-and-mid;
+      }
+
+    } @else if ($direction == right) or ($direction == left) {
+      margin-top: - $border-width;
+
+      @if ($direction == right) {
+        margin-left: - $mid-border-width;
+      } @else {
+        margin-left: - $border-width-and-mid;
+      }
+    }
+  }
+}
+
+// 16. linear gradient
+@mixin linear-gradient-b($args...) {
+  background-image: -o-linear-gradient($args);
+  background-image: -moz-linear-gradient($args);
+  background-image: -webkit-linear-gradient($args);
+  background-image: linear-gradient($args);
+}
+
+// 16.B radial gradient
+@mixin radial-gradient-b($args...) {
+  background-image: -o-radial-gradient($args);
+  background-image: -ms-radial-gradient($args);
+  background-image: -moz-radial-gradient($args);
+  background-image: -webkit-radial-gradient($args);
+  background-image: radial-gradient($args);
+}
+
+// 17. backdrop filter
+@mixin backdrop-filter($args...) {
+  -webkit-backdrop-filter: $args;
+  backdrop-filter: $args;
+}
+
+// 18. text stroke
+@function text-stroke($size: 2, $color: #fff, $correction: 0) {
+	$radius: $size - $correction;
+	$stroke: ();
+
+	@for $i from -$size through $size {
+		@for $k from -$size through $size {
+
+			$x: $k;
+			$y: $i;
+
+			@if $k > 0 {
+				$x: $k - 0.5;
+			} @elseif $k < 0 {
+				$x: $k + 0.5;
+			}
+
+			@if $i > 0 {
+				$y: $i - 0.5;
+			} @elseif $i < 0 {
+				$y: $i + 0.5;
+			}
+
+			@if ($x*$x + $y*$y <= $radius*$radius) {
+				$stroke: append($stroke, $i*1px $k*1px 0 $color, comma);
+			}
+		}
+	}
+
+	@return $stroke;
+}
+
+// 19. text stroke
+@mixin text-stroke($size: 2, $color: #fff, $correction: 0) {
+	text-shadow: text-stroke($size, $color, $correction);
+}
+
+// 20. tag color gernerator
+@mixin generate-tag-color-class($classname, $color, $count-color-darken-factor, $text-color-darken-factor: 0) {
+  &.#{$classname} {
+    background-color: darken($color, $text-color-darken-factor);
+    .count {
+      background-color: darken($color, $count-color-darken-factor);
+    }
+  }
+}
+
+@mixin generate-tag-color-classes($classnames, $colors, $count-color-darken-factor, $text-color-darken-factor: 0) {
+  @for $i from 1 to max(length($colors), length($classnames)) + 1 {
+    @include generate-tag-color-class(nth($classnames, $i), nth($colors, $i), $count-color-darken-factor, $text-color-darken-factor);
+  }
+}
+
+// 21. center with flexbox
+@mixin center-with-flexbox {
+  @include flexbox;
+  @include justify-content(center);
+  @include align-items(center);
+}
+
+// 22. make text unselectable
+@mixin unselectable-text {
+  -webkit-user-select: none; /* Safari */
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* IE10+/Edge */
+  user-select: none; /* Standard */
+}
+
+// 23. text underline
+@mixin text-underline-crop($background) {
+  text-shadow:  .03em 0 $background,
+                -.03em 0 $background,
+                0 .03em $background,
+                0 -.03em $background,
+                .06em 0 $background,
+                -.06em 0 $background,
+                .09em 0 $background,
+                -.09em 0 $background,
+                .12em 0 $background,
+                -.12em 0 $background,
+                .15em 0 $background,
+                -.15em 0 $background;
+}
+
+@mixin text-underline($color-bg, $color-text, $underline-size) {
+  background-image: linear-gradient($color-text, $color-text);
+  background-size: $underline-size $underline-size;
+  background-repeat: repeat-x;
+  background-position: 0% 95%;
+}
+
+@mixin text-selection($selection) {
+  &::selection {
+    @include text-underline-crop($selection);
+
+    background: $selection;
+  }
+
+  &::-moz-selection {
+    @include text-underline-crop($selection);
+
+    background: $selection;
+  }
+}
+
+@mixin link-underline($background, $text, $underline, $underline-size, $selection){
+  @include text-underline-crop($background);
+  @include text-underline($background, $underline,$underline-size);
+  @include text-selection($selection);
+
+  color: $text;
+  text-decoration: none;
+
+  *,
+  *:after,
+  &:after,
+  *:before,
+  &:before {
+    text-shadow: none;
+  }
+
+  &:visited {
+    color: $text;
+  }
+}
