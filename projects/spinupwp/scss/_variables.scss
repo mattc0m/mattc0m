@@ -1,0 +1,34 @@
+// Colors
+$pink: #ee5e7e;
+$dark-grey: #36363b;
+$cool-grey: #98a4ab;
+$slate-grey: #606e77;
+$grey: #b4b4b4;
+$light-grey: #e2e2e2;
+$lighter-grey: #f2f4f6;
+$lightest-grey: #f9fafb;
+$white: #fff;
+
+// Color Naming
+$brand-color: $pink;
+$default-text: $dark-grey;
+$stroke-color: $light-grey;
+$navbar-color: $lighter-grey;
+$background: $lightest-grey;
+
+// Sizing
+$left-side-width: 254px;
+$header-height: 74px;
+$gutter: 2rem;
+$form-gutter: 1.2em;
+$checkbox-size: 1.8em;
+$border-radius: .2rem;
+$topbar-height: 106px;
+$nav-item-height: 3.5em;
+
+// Breakpoint sizes
+$breakpoint-xl: 1690px; // Very large screens
+$breakpoint-large: 1280px;
+$breakpoint-medium: 980px;
+$breakpoint-small: 736px;
+$breakpoint-phone: 480px;

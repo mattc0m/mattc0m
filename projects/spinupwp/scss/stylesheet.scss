@@ -1,0 +1,10 @@
+@import "variables";  /* colors and sizing variables that set standards */
+@import "normalize";  /* resets HTML elements to a more generic form */
+@import "flex";       /* set of helper mixins to support flexbox layout */
+@import "mixins";     /* set of helper mixins to support various styles and layouts */
+@import "fonts";      /* font import */
+@import "buttons";    /* button styles */
+@import "forms";      /* forms, selects, validations, etc. styles */
+@import "layout";     /* global layout, e.g. header and navigation */
+@import "components";     /* structure and layout for specific pages */
+@import "pages";      /* structure and layout for specific pages */

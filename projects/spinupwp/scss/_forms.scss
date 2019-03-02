@@ -1,0 +1,126 @@
+input, textarea {
+    padding: $form-gutter*0.8 $form-gutter;
+    font-weight: 400;
+    color: $default-text;
+    border-color: #d3d3d3;
+
+    display: block;
+    width: 100%;
+    font-size: .875rem;
+    color: #495057;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid $stroke-color;
+    border-radius: $border-radius;
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.04);
+
+    -webkit-transition: border-color .15s ease-in-out,-webkit-box-shadow .15s ease-in-out;
+    transition: border-color .15s ease-in-out,-webkit-box-shadow .15s ease-in-out;
+    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out,-webkit-box-shadow .15s ease-in-out;
+
+    &:focus {
+      outline: 0;
+      border-color: $brand-color;
+      box-shadow: 0 0 0 2px rgba($brand-color,0.25);
+    }
+
+    &:disabled { background: $lighter-grey; color: $cool-grey; }
+}
+
+label {
+  font-weight: 500;
+  line-height: 2em;
+}
+
+.ui-form-group {
+  @include flexbox;
+  @include flex-direction(column);
+  @include justify-content(flex-start);
+  @include align-items(flex-start);
+  padding: 0 0 $form-gutter 0;
+
+  label { cursor: pointer; }
+  input[type=text] { cursor: text; }
+
+  /* checkbox system, pls work */
+  &.checkbox {
+    position: relative;
+    cursor: pointer;
+    .ui-checkbox { position: relative; cursor: pointer; }
+    @include flex-direction(row);
+
+    input {
+      @include flex(0);
+      opacity: 0;
+      height: 0px;
+      &:checked {
+        + label {
+          color: $brand-color;
+          &:before {
+            background: $brand-color;
+            border-color: $brand-color;
+          }
+          &:after { opacity: 1; }
+          &:hover:before {
+            box-shadow: 0 0 0 3px rgba($brand-color,0.25);
+            opacity: 0.9;
+          }
+        }
+      }
+      &:focus + label:before { // style for a focused checkbox
+        box-shadow: 0 0 0 1px rgba($brand-color,1);
+        background: rgba($brand-color,0.1 );
+      }
+      &:focus:checked + label:before { // stlye for a focused and checked checkbox
+        box-shadow: 0 0 0 3px rgba($brand-color,0.25);
+        background: rgba($brand-color,0.8);
+      }
+    }
+
+    label {
+      @include flexbox;
+      @include align-items(center);
+      padding-left: $checkbox-size * 1.5;
+      @include transition(all 0.25s ease-in-out);
+      color: $slate-grey;
+
+      &:hover:before {
+        border-color: $brand-color;
+        box-shadow: 0 0 0 2px rgba($brand-color,0.25);
+      }
+
+      &:hover { color: $brand-color; }
+
+      &:before {
+        @include transition(all 0.25s ease-in-out);
+        content: '';
+        position: absolute;
+        width: $checkbox-size;
+        height: $checkbox-size;
+        background: transparent;
+        left: 0;
+        border-radius: $border-radius;
+        border: 1px solid $light-grey;
+      }
+      &:after {
+        @include transition(all 0.25s ease-in-out);
+        position: absolute;
+        left: $form-gutter / 3.5;
+        font-size: 20px;
+        content: '✓';
+        color: white;
+        opacity: 0;
+        padding-top: 1px;
+      }
+    }
+  }
+
+
+  &.multiple {
+    @include flex-direction(column);
+    > div { margin-bottom: $form-gutter; }
+  }
+}
+
+.label-header { padding-bottom: $form-gutter / 2; display: block; }

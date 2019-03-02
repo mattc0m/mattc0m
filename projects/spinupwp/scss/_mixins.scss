@@ -1,0 +1,299 @@
+// 1. opacity mixin
+@mixin opacity($opacity) {
+  opacity: $opacity;
+  $opacity-ie: $opacity * 100;
+  filter: alpha(opacity=$opacity-ie); //IE8
+}
+
+// 2. transition mixin
+@mixin transition($args...) {
+  -webkit-transition: $args;
+  -moz-transition: $args;
+  -ms-transition: $args;
+  -o-transition: $args;
+  transition: $args;
+}
+
+// 3. animations
+// deprecated
+@mixin keyframes($animation-name) {
+    @-webkit-keyframes #{$animation-name} {
+        @content;
+    }
+    @-moz-keyframes #{$animation-name} {
+        @content;
+    }
+    @-ms-keyframes #{$animation-name} {
+        @content;
+    }
+    @-o-keyframes #{$animation-name} {
+        @content;
+    }
+    @keyframes #{$animation-name} {
+        @content;
+    }
+}
+
+// exmaple: @include animation(0, 0.5s, animation-name, ease);
+@mixin animation ($delay, $duration, $animation, $direction: forward, $fillmode: fowards) {
+    -webkit-animation-delay: $delay;
+    -webkit-animation-duration: $duration;
+    -webkit-animation-name: $animation;
+    -webkit-animation-fill-mode: $fillmode;
+    -webkit-animation-direction: $direction;
+
+    -moz-animation-delay: $delay;
+    -moz-animation-duration: $duration;
+    -moz-animation-name: $animation;
+    -moz-animation-fill-mode: $fillmode;
+    -moz-animation-direction: $direction;
+
+    animation-delay: $delay;
+    animation-duration: $duration;
+    animation-name: $animation;
+    animation-fill-mode: $fillmode;
+    animation-direction: $direction;
+}
+
+// 4. breakpoints
+// note: breakpoint sizes set in _variables
+
+@mixin bp-xl {
+  @media only screen and (max-width: $breakpoint-xl) {
+    @content;
+  }
+}
+@mixin bp-large {
+  @media only screen and (max-width: $breakpoint-large) {
+    @content;
+  }
+}
+@mixin bp-medium {
+  @media only screen and (max-width: $breakpoint-medium) {
+    @content;
+  }
+}
+@mixin bp-small {
+  @media only screen and (max-width: $breakpoint-small) {
+    @content;
+  }
+}
+@mixin bp-phone {
+  @media only screen and (max-width: $breakpoint-small) {
+    @content;
+  }
+}
+
+// 5. visually hidden
+%visuallyhidden {
+  margin: -1px;
+  padding: 0;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  clip: rect(0, 0, 0, 0);
+  position: absolute;
+}
+
+// 6. clearfix
+%clearfix {
+  *zoom: 1;
+  &:before, &:after {
+    content: " ";
+    display: table;
+  }
+  &:after {
+    clear: both;
+  }
+}
+
+// 7. transform
+@mixin transform($transforms) {
+	   -moz-transform: $transforms;
+	     -o-transform: $transforms;
+	    -ms-transform: $transforms;
+	-webkit-transform: $transforms;
+          transform: $transforms;
+}
+// 8. rotate
+@mixin rotate ($deg) {
+  @include transform(rotate(#{$deg}deg));
+}
+
+// 9. scale
+@mixin scale($scale) {
+	 @include transform(scale($scale));
+}
+// 10. translate
+@mixin translate ($x, $y) {
+   @include transform(translate($x, $y));
+}
+// 11. skew
+@mixin skew ($x, $y) {
+   @include transform(skew(#{$x}deg, #{$y}deg));
+}
+// 12. transform origin
+@mixin transform-origin ($origin) {
+    moz-transform-origin: $origin;
+	     -o-transform-origin: $origin;
+	    -ms-transform-origin: $origin;
+	-webkit-transform-origin: $origin;
+          transform-origin: $origin;
+}
+
+// 13. font smooth
+@mixin font-smooth($fontsmooth: antialiased, $mozfontsmooth: grayscale ) {
+  -webkit-font-smoothing: $fontsmooth;
+  -moz-osx-font-smoothing: $mozfontsmooth;
+  font-smoothing: $fontsmooth;
+  text-rendering: optimizeLegibility;
+}
+
+// 14. box shadow
+@mixin box-shadow($top, $left, $blur, $color, $inset: false) {
+  @if $inset {
+    -webkit-box-shadow:inset $top $left $blur $color;
+    -moz-box-shadow:inset $top $left $blur $color;
+    box-shadow:inset $top $left $blur $color;
+  } @else {
+    -webkit-box-shadow: $top $left $blur $color;
+    -moz-box-shadow: $top $left $blur $color;
+    box-shadow: $top $left $blur $color;
+  }
+}
+
+// 14. triangles (plain and bordered)
+@mixin triangle($size, $color, $direction) {
+    height: 0;
+    width: 0;
+    border-color: transparent;
+    border-style: solid;
+    border-width: $size / 2;
+
+    @if $direction == up {
+      border-bottom-color: $color;
+    } @else if $direction == right {
+      border-left-color:   $color;
+
+    } @else if $direction == down {
+      border-top-color:    $color;
+
+    } @else if $direction == left {
+      border-right-color:  $color;
+    }
+}
+
+// 15. bordered triangle
+@mixin bordered-triangle($size, $border-width, $color, $border-color, $direction, $alt: false) {
+  $back-size: $size + ($border-width * 2);
+  position: relative;
+
+  min-width: $size;
+  min-height: $size;
+
+  &:after,
+  &:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+
+  &:after {
+     @include triangle($size, $color, $direction);
+  }
+
+  &:before {
+    @include triangle($back-size, $border-color, $direction);
+    $mid-border-width: ($border-width / 2);
+    $border-width-and-mid: $border-width + $mid-border-width;
+
+    @if ($alt == true) {
+      $mid-border-width: 0;
+      $border-width-and-mid: $border-width * 2;
+    }
+
+    @if ($direction == up) or ($direction == down) {
+      margin-left: - $border-width;
+
+      @if ($direction == down) {
+        margin-top: -$mid-border-width;
+      } @else {
+        margin-top: - $border-width-and-mid;
+      }
+
+    } @else if ($direction == right) or ($direction == left) {
+      margin-top: - $border-width;
+
+      @if ($direction == right) {
+        margin-left: - $mid-border-width;
+      } @else {
+        margin-left: - $border-width-and-mid;
+      }
+    }
+  }
+}
+
+// 16. linear + radial gradients
+@mixin linear-gradient($args...) {
+  background-image: -o-linear-gradient($args);
+  background-image: -moz-linear-gradient($args);
+  background-image: -webkit-linear-gradient($args);
+  background-image: linear-gradient($args);
+}
+
+// 17. backdrop filter
+@mixin backdrop-filter($args...) {
+  -webkit-backdrop-filter: $args;
+  backdrop-filter: $args;
+}
+
+// 18. text stroke
+@function text-stroke($size: 2, $color: #fff, $correction: 0) {
+	$radius: $size - $correction;
+	$stroke: ();
+
+	@for $i from -$size through $size {
+		@for $k from -$size through $size {
+
+			$x: $k;
+			$y: $i;
+
+			@if $k > 0 {
+				$x: $k - 0.5;
+			} @else if $k < 0 {
+				$x: $k + 0.5;
+			}
+
+			@if $i > 0 {
+				$y: $i - 0.5;
+			} @else if $i < 0 {
+				$y: $i + 0.5;
+			}
+
+			@if ($x*$x + $y*$y <= $radius*$radius) {
+				$stroke: append($stroke, $i*1px $k*1px 0 $color, comma);
+			}
+		}
+	}
+
+	@return $stroke;
+}
+
+// 19. text stroke
+@mixin text-stroke($size: 2, $color: #fff, $correction: 0) {
+  text-shadow: text-stroke($size, $color, $correction);
+  @supports (text-stroke: 2px #fff) or (-webkit-text-stroke: 2px #fff) {
+    text-shadow: none;
+    -webkit-text-stroke: $size * 1px $color;
+    text-stroke: $size * 1px $color;
+  }
+}
+
+// 20. center with flexbox
+@mixin center-with-flexbox {
+  @include flexbox;
+  @include justify-content(center);
+  @include align-items(center);
+}
