@@ -1,3 +1,49 @@
 .button {
+  display: inline-block;
+  position: relative;
+  cursor: pointer;
 
+  padding:1em 3em;
+  min-width: 9em;
+  margin:0 0.3em 0.3em 0;
+  border-radius: $border-radius;
+
+  text-decoration:none;
+  text-align:center;
+  font-weight: 500;
+
+  color: white;
+  background-color:$brand-color;
+
+  @include transition(all ease-in-out .25s);
+
+  &:hover { text-decoration: none; }
+
+  &.secondary {
+    background: $light-grey;
+    color: $slate-grey;
+  }
+  &.ghost {
+    color: $default-text;
+    background: white;
+    border: 1px solid $stroke-color;
+    border-radius: $border-radius;
+    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.04);
+    .icon {
+      font-size: 14px;
+      padding-right: 6px;
+      left: -16px;
+      position: relative;
+      color: $cool-grey;
+      @include transition(all ease-in-out .25s);
+      &.icon-plus-heavy { font-size: 10px; padding-left: 0.25em; }
+    }
+    &:hover {
+      color: $brand-color;
+      box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.07);
+      border-color: darken($stroke-color,10%);
+      .icon { color: $brand-color; }
+    }
+  }
 }
+.right-side { float: right; }

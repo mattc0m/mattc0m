@@ -103,16 +103,20 @@ a {
       @include transition(all 0.3s ease-in-out);
 
       .icon {
-        font-size: 24px;
+        font-size: 18px;
         position: relative;
-        top: -2px;
+        padding-right: 0.5em;
         left: -8px;
+        color: lighten($cool-grey,10%);
+        @include transition(all 0.3s ease-in-out);
+        &.icon-chevron-left { font-size: 14px; }
       }
 
       &:hover {
         text-decoration: none;
         color: $default-text;
-        &:before { left: -3px; opacity: 1; }
+        &:before { left: 0px; opacity: 1; }
+        .icon { color: $brand-color; }
       }
 
       &:before { // "the line" -- animates better w/o using box-shadow
@@ -235,6 +239,9 @@ a {
     .ui-hints { padding-left: 0; }
   }
   @include bp-small {
-    padding: $gutter / 1.5;
+    padding: 0;
+    .wizard-body,
+    .wizard-footer,
+    .ui-hints { padding: $mobile-gutter; }
   }
 }

@@ -1,0 +1,129 @@
+<html>
+<head>
+  <link rel="stylesheet" type="text/css" href="css/stylesheet.css" />
+  <title>SpinupWP Demo - Routine Wizard</title>
+</head>
+<body>
+  <div class="ui-app">
+    <div class="ui-header">
+      <div class="ui-left-side">
+        <div class="logo"><img src="img/logo-dark.svg" width="146" height="28" alt="SpinupWP"></div>
+      </div>
+      <div class="ui-right-side">
+      </div>
+    </div>
+    <div class="ui-body">
+      <div class="ui-left-side">
+        <div class="ui-navigation condensed ui-center-column">
+          <div class="navigation-group back-area">
+            <a href="#" class="nav-item"><i class="icon icon-chevron-left"></i><span>Back to Servers</span></a>
+          </div>
+          <div class="navigation-group main-nav">
+            <a href="#" class="nav-item"><i class="icon icon-settings"></i><span>Settings</span></a>
+            <a href="#" class="nav-item active"><i class="icon icon-backup"></i><span>Backups</span></a>
+            <a href="#" class="nav-item"><i class="icon icon-https"></i><span>HTTPS</span></a>
+            <a href="#" class="nav-item"><i class="icon icon-sftp"></i><span>SFTP & SSH</span></a>
+          </div>
+        </div>
+      </div>
+      <div class="ui-right-side">
+        <div class="ui-topbar">
+          <div class="site-info">
+            <h2 class="name">website.com</h2>
+            <a href="#">View Site</a>
+            <a href="#">View Admin</a>
+          </div>
+          <div class="ui-right-side">
+            <div class="ui-meta-block site-user">
+              <h5>Site User</h5>
+              <a href="#">Domainname</a>
+            </div>
+            <div class="ui-meta-block server">
+              <h5>Server</h5>
+              <a href="#">do-server-3</a>
+            </div>
+            <div class="ui-meta-block ip">
+              <h5>IP Address</h5>
+              <p>68.183.120.115</p>
+            </div>
+          </div>
+        </div>
+        <div class="ui-main">
+          <div class="ui-content">
+            <div class="ui-wizard">
+              <div class="wizard-top">
+                <h1>New Backup Routine</h1>
+                <div class="ui-progress-steps">
+                  <div class="step">Storage Provider</div>
+                  <div class="divider"></div>
+                  <div class="step active">Basics</div>
+                  <div class="divider"></div>
+                  <div class="step">Routine</div>
+                </div>
+              </div>
+            </div>
+              <div class="wizard-body">
+                <div class="ui-form-group input">
+                  <label for="routine-name">Routine Name</label>
+                  <input type="text" id="routine-name">
+                </div>
+                <div class="ui-form-group input">
+                  <label for="backup-directory">Backup Directory</label>
+                  <input type="text" id="backup-directory">
+                </div>
+                <div class="ui-form-group checkbox">
+                  <input type="checkbox" id="backup-site" checked>
+                  <label for="backup-site">Site Backup</label>
+                </div>
+                <div class="ui-form-group textarea">
+                  <label for="exemptions">File & Directory Exemptions</label>
+                  <textarea rows="3" id="exemptions" disabled>/cache/
+/logs/
+                  </textarea>
+                </div>
+                <label class="label-header">Database Backup</label>
+                <div class="ui-form-group checkbox multiple">
+                  <div class="ui-checkbox">
+                    <input type="checkbox" id="database-1">
+                    <label for="database-1">website_db_1</label>
+                  </div>
+                  <div class="ui-checkbox">
+                    <input type="checkbox" id="database-2">
+                    <label for="database-2">website_db_alternate</label>
+                  </div>
+                </div>
+              </div>
+              <div class="wizard-footer">
+                <a href="#" class="button secondary">Back</a>
+                <a href="#" class="button primary right-side">Next</a>
+              </div>
+            </div>
+            <div class="ui-hints">
+              <h2>Helpful Hints</h2>
+              <div class="ui-hint active">
+                <h4>Routine Name</h4>
+                <p>You can add multiple storage providers, even from the same service. When you create a Backup Routine, it must save to a single Storage Provider.</p>
+              </div>
+              <div class="ui-hint">
+                <h4>Backup Directory</h4>
+                <p>You can add multiple storage providers, even from the same service. When you create a Backup Routine, it must save to a single Storage Provider.</p>
+              </div>
+              <div class="ui-hint">
+                <h4>Site Backup</h4>
+                <p>You can add multiple storage providers, even from the same service. When you create a Backup Routine, it must save to a single Storage Provider.</p>
+              </div>
+              <div class="ui-hint">
+                <h4>File & Directory Exemptions</h4>
+                <p>You can add multiple storage providers, even from the same service. When you create a Backup Routine, it must save to a single Storage Provider.</p>
+              </div>
+              <div class="ui-hint">
+                <h4>Database Backup</h4>
+                <p>You can add multiple storage providers, even from the same service. When you create a Backup Routine, it must save to a single Storage Provider.</p>
+              </div>
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

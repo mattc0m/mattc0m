@@ -7,9 +7,6 @@ input, textarea {
     display: block;
     width: 100%;
     font-size: .875rem;
-    color: #495057;
-    background-color: #fff;
-    background-clip: padding-box;
     border: 1px solid $stroke-color;
     border-radius: $border-radius;
     box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.04);
@@ -106,9 +103,11 @@ label {
       &:after {
         @include transition(all 0.25s ease-in-out);
         position: absolute;
-        left: $form-gutter / 3.5;
-        font-size: 20px;
-        content: '✓';
+        left: 5px;
+        font-size: 15px;
+        font-family: 'spinupwp';
+        content: "\67";
+        font-weight: normal;
         color: white;
         opacity: 0;
         padding-top: 1px;

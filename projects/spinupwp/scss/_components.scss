@@ -104,3 +104,106 @@
     padding-bottom: 0.6em;
   }
 }
+
+// Table block
+// For blocks that have a header, button, and table (with thead)
+.ui-table-block {
+  @include flexbox;
+  @include flex-direction(column);
+  padding: $gutter *0.8 $gutter;
+  color: $default-text;
+  width: 100%;
+  border: 1px solid $stroke-color;
+  border-radius: $border-radius;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.04);
+  margin-bottom: $gutter;
+
+  .top {
+    @include flexbox;
+    @include align-items(center);
+    padding-bottom: $gutter;
+    height: 5em;
+    h2 {
+      font-size: 1.4em;
+      font-weight: 500;
+      @include font-smooth;
+    }
+    .button {
+      @include flexbox;
+      @include align-items(center);
+      margin-left: auto;
+      height: 3em;
+      padding: 0 2em;
+    }
+  }
+
+  th {
+    font-size: 0.8em;
+    text-align: left;
+    text-transform: uppercase;
+    color: $cool-grey;
+    font-weight: 500;
+  }
+  tr {
+    height: $tr-height;
+    font-size: 0.875em;
+
+    td:first-child { font-weight: 500; }
+    th:last-child, td:last-child { text-align: right; }
+    &.disabled {
+      color: $cool-grey;
+      a { color: lighten($brand-color,10%); }
+      td.include-icon:before {
+        -webkit-filter: grayscale(100%); /* Safari 6.0 - 9.0 */
+        filter: grayscale(100%);
+        opacity: 0.5;
+      }
+    }
+
+    th, td {
+      padding-right: 0.2em;
+      &:last-child { padding-right: 0; }
+    }
+
+    td.include-icon {
+      position: relative;
+
+      &:before {
+        content: '';
+        display: inline-block;
+        width: 18px;
+        height: 18px;
+        background-size: contain;
+        margin-right: 0.5em;
+        position: relative;
+        top: 4px;
+      }
+      &.icon-googlecloud:before { background-image:url(../img/logo-googlecloud.png); }
+      &.icon-digitalocean:before { background-image:url(../img/logo-digitalocean.png); }
+    }
+  }
+  .full-width { margin-top: $gutter / 2; width: 100%; }
+
+  @include bp-small {
+    margin: 0;
+    margin-bottom: $mobile-gutter;
+    border-radius: 0;
+    border: 0;
+    padding: 0;
+    .top { padding: $mobile-gutter; }
+    thead, th { visibility: hidden; display: none; }
+    tr {
+      @include flexbox;
+      @include flex-direction(column);
+      height: auto;
+      position: relative;
+
+      padding: 1em;
+      border-bottom: 1px solid $stroke-color;
+      td:first-child { font-size: 1.2em; }
+    }
+    td { display: inline-block; padding: 0.15em; }
+    td:last-child { position: absolute; right: $mobile-gutter; top: 35%;  } // Action or Result line
+    .full-width { margin: 1em auto; width: 95%;  }
+  }
+}
